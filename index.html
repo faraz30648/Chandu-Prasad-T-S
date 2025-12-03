@@ -1,0 +1,1333 @@
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Chandu Prasad TS</title>
+      <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+      <style>
+          /* CSS Variables - Light Mode Default */
+:root {
+              [cite_start]--color-white: rgba(255, 255, 255, 1); [cite: 267]
+              --color-background: rgba(245, 247, 250, 1); /* Light Gray Background */
+              --color-surface: rgba(250, 250, 250, 1); /* Very Light Gray (Paper-like) */
+              --color-text: rgba(19, 52, 59, 1); /* Black/Dark Text */
+              --color-text-secondary: rgba(98, 108, 113, 0.8); /* Secondary Gray Text */
+              --color-primary: rgba(0, 0, 0, 1); /* Pure Black */
+              [cite_start]--color-primary-hover: rgba(29, 116, 128, 1); [cite: 277]
+              --color-border: rgba(94, 82, 64, 0.1);
+              [cite_start]--color-card-border: rgba(94, 82, 64, 0.08); [cite: 277]
+              --font-family-base: "Montserrat", "FKGroteskNeue", "Inter", sans-serif;
+              --font-family-tagline: "Merriweather", serif;
+              --font-size-base: 14px;
+              --font-size-lg: 16px;
+              --font-size-xl: 18px;
+              --font-size-2xl: 20px;
+              --font-size-3xl: 26px;
+              --font-size-4xl: 38px;
+              --font-weight-medium: 500;
+              --font-weight-semibold: 600;
+              --font-weight-bold: 700;
+              --space-8: 8px;
+              --space-12: 12px;
+              --space-16: 16px;
+              --space-24: 24px;
+              --space-32: 32px;
+              --space-48: 48px;
+              --space-64: 64px;
+              --radius-base: 8px;
+              --radius-lg: 12px;
+              --radius-full: 9999px;
+              --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+              --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+              --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+          }
+          @font-face {
+              font-family: 'FKGroteskNeue';
+              src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+          }
+
+          * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+          }
+
+          html {
+              font-family: var(--font-family-base);
+              font-size: var(--font-size-base);
+              color: var(--color-text);
+              background-color: var(--color-background);
+              background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C9C9C' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M3 0h3v3H3z'/%3E%3Cpath d='M0 3h3v3H0z'/%3E%3C/g%3E%3C/svg%3E");
+              scroll-behavior: smooth;
+          }
+
+          /* --- SWIPE-DOWN FIX: STRUCTURAL CSS --- */
+          body {
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
+          }
+
+          body.header-open {
+              overflow-y: auto;
+          }
+
+          .header {
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+              background-color: var(--color-background); /* Use the new light background color */
+              color: var(--color-text); /* Use the new dark text color */
+              padding: var(--space-64) var(--space-24) var(--space-48);
+              text-align: center;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              z-index: 50;
+              overflow: hidden;
+              transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+          }
+
+          body.header-open .header {
+              transform: translateY(-100vh);
+          }
+
+          .content-wrapper {
+              position: relative;
+              z-index: 10;
+              margin-top: 100vh;
+              transition: margin-top 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+          }
+
+          body.header-open .content-wrapper {
+              margin-top: 0;
+          }
+
+          /* --- END SWIPE-DOWN FIX: STRUCTURAL CSS --- */
+
+          .header::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: radial-gradient(circle at 70% 30%, rgba(50, 184, 198, 0.1) 0%, transparent 60%);
+              pointer-events: none;
+          }
+
+          /* --- REDESIGNED HEADER CONTENT --- */
+          .header-content {
+              max-width: 768px;
+              margin: 0 auto;
+              position: relative;
+              z-index: 1;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              flex-grow: 1;
+              justify-content: center;
+              padding: 0 var(--space-12);
+          }
+
+          .profile-pic {
+              width: 100px;
+              height: 100px;
+              border-radius: 20%;
+              border: 3px solid var(--color-white);
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+              object-fit: cover;
+              margin-bottom: var(--space-24);
+          }
+
+          .header h1 {
+              font-size: clamp(var(--font-size-3xl), 8vw, var(--font-size-4xl));
+              font-weight: var(--font-weight-bold);
+              margin-bottom: var(--space-12);
+          }
+
+          .header .tagline {
+              font-size: clamp(var(--font-size-base), 4vw, var(--font-size-lg));
+              font-family: var(--font-family-tagline);
+              font-style: italic;
+              letter-spacing: 0.2px;
+              margin-bottom: var(--space-32);
+              width: 100%;
+              max-width: 600px;
+              line-height: 1.6;
+              color: rgb(0, 0, 0);
+          }
+
+          .social-links {
+              display: flex;
+              justify-content: center;
+              gap: var(--space-16);
+              margin-top: var(--space-12);
+              margin-bottom: var(--space-48);
+              flex-wrap: wrap;
+          }
+
+          .social-link {
+              display: inline-flex;
+              align-items: center;
+              padding: 8px 12px;
+              background: none;
+              border-radius: var(--radius-base);
+              color: var(--color-primary);
+              text-decoration: none;
+              font-weight: var(--font-weight-medium);
+              transition: all 0.25s ease;
+              font-size: var(--font-size-base);
+              border: 1px solid rgba(255, 255, 255, 0.15);
+          }
+
+          .social-link:hover {
+              background: rgba(50, 184, 198, 0.1);
+              color: var(--color-primary-hover);
+              transform: translateY(-2px);
+              border-color: var(--color-primary);
+          }
+
+          .social-link svg {
+              margin-right: var(--space-8);
+              width: 18px;
+              height: 18px;
+              fill: currentColor;
+          }
+
+          /* --- END REDESIGNED HEADER CONTENT --- */
+
+
+          /* Hamburger Menu STYLES */
+          .nav-menu {
+              position: absolute;
+              top: 0;
+              left: 0;
+              z-index: 1000;
+          }
+
+          .menu-toggle {
+              background: none;
+              border: none;
+              color: var(--color-white);
+              font-size: 24px;
+              padding: var(--space-16);
+              cursor: pointer;
+              position: relative;
+              z-index: 1001;
+          }
+
+          .menu-icon {
+              display: block;
+              width: 25px;
+              height: 3px;
+              background: var(--color-white);
+              position: relative;
+              transition: background 0.3s ease-in-out;
+          }
+
+          .menu-icon::before,
+          .menu-icon::after {
+              content: '';
+              display: block;
+              width: 25px;
+              height: 3px;
+              background: var(--color-white);
+              position: absolute;
+              left: 0;
+              transition: transform 0.3s ease-in-out;
+          }
+
+          .menu-icon::before {
+              top: -8px;
+          }
+
+          .menu-icon::after {
+              top: 8px;
+          }
+
+          .menu-toggle.active .menu-icon {
+              background: transparent;
+          }
+
+          .menu-toggle.active .menu-icon::before {
+              transform: translateY(8px) rotate(45deg);
+          }
+
+          .menu-toggle.active .menu-icon::after {
+              transform: translateY(-8px) rotate(-45deg);
+          }
+
+          .nav-list {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 200px;
+              height: 100%;
+              background-color: var(--color-surface);
+              transform: translateX(-100%);
+              transition: transform 0.3s ease-in-out;
+              box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+              padding-top: 80px;
+              z-index: 1000;
+              color: var(--color-text);
+          }
+
+          .nav-list.open {
+              transform: translateX(0);
+          }
+
+          .nav-list li a {
+              display: block;
+              padding: var(--space-16) var(--space-24);
+              text-decoration: none;
+              color: var(--color-text);
+              font-size: var(--font-size-lg);
+              transition: background-color 0.2s;
+              border-bottom: 1px solid var(--color-card-border);
+          }
+
+          .nav-list li a:hover {
+              background-color: var(--color-primary);
+              color: var(--color-white);
+          }
+
+
+          /* Main Content Styling */
+          .container {
+              max-width: 1024px;
+              margin: 0 auto;
+              padding: var(--space-48) var(--space-24);
+              padding-top: 0;
+          }
+
+          .section {
+              margin-bottom: var(--space-64);
+          }
+
+          .section-title {
+              font-size: clamp(var(--font-size-2xl), 6vw, var(--font-size-3xl));
+              font-weight: var(--font-weight-bold);
+              color: var(--color-text);
+              margin-bottom: var(--space-24);
+              position: relative;
+              padding-bottom: var(--space-12);
+          }
+
+          .section-title::after {
+              content: '';
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 60px;
+              height: 4px;
+              background: linear-gradient(90deg, var(--color-primary), transparent);
+              border-radius: var(--radius-full);
+          }
+
+          .card,
+          .experience-card,
+          .skill-category {
+              background-color: var(--color-surface);
+              border-radius: var(--radius-lg);
+              border: 1px solid var(--color-card-border);
+              padding: var(--space-24);
+              box-shadow: var(--shadow-sm);
+              margin-bottom: var(--space-24);
+          }
+
+          .card p {
+              line-height: 1.8;
+              margin-bottom: var(--space-16);
+              color: var(--color-text-secondary);
+          }
+
+          /* Customer Support List - No dot, only star */
+          .experience-card ul {
+              list-style: none;
+              padding: 0;
+          }
+
+          .experience-card li {
+              padding-left: var(--space-24);
+              margin-bottom: var(--space-12);
+              position: relative;
+              line-height: 1.7;
+              color: var(--color-text);
+              display: block; /* Ensure it flows like a block element */
+          }
+
+          .experience-card li::before {
+              content: '★';
+              position: absolute;
+              left: 0;
+              color: var(--color-primary);
+              font-size: 12px;
+              line-height: 1.7;
+              top: 0;
+          }
+
+
+          .skills-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: var(--space-16);
+          }
+
+          .skill-category h3 {
+              color: var(--color-primary);
+              font-size: var(--font-size-lg);
+              font-weight: var(--font-weight-semibold);
+              margin-bottom: var(--space-16);
+          }
+
+          .skill-category ul {
+              list-style: none;
+          }
+
+          .skill-category li {
+              padding-left: var(--space-24);
+              margin-bottom: var(--space-8);
+              position: relative;
+              line-height: 1.6;
+          }
+
+          .skill-category li::before {
+              position: absolute;
+              left: 0;
+              color: var(--color-primary);
+              font-weight: var(--font-weight-bold);
+              font-size: 1.1em;
+              top: 0;
+          }
+
+          /* Soft Skills: Checkmark */
+          #soft-skills li::before {
+              content: '✓';
+          }
+
+          /* Tech Skills: Chevron */
+          #tech-skills li::before {
+              content: '›';
+              font-weight: 900;
+              top: -1px;
+              font-size: 1.2em;
+          }
+
+          .cta-section {
+              background-color: var(--color-surface);
+              color: var(--color-text);
+              background-blend-mode: multiply;
+              border-radius: var(--radius-lg);
+              padding: var(--space-32) var(--space-24);
+              text-align: center;
+              border: 1px solid var(--color-border);
+          }
+
+          .cta-section h2 {
+              font-size: clamp(var(--font-size-2xl), 6vw, var(--font-size-3xl));
+              font-weight: var(--font-weight-bold);
+              margin-bottom: var(--space-16);
+              color: var(--color-white);
+          }
+
+          .cta-section p {
+              font-size: var(--font-size-lg);
+              color: var(--color-text);
+              margin-bottom: var(--space-32);
+          }
+
+          .btn {
+              display: inline-flex;
+              align-items: center;
+              padding: 12px 32px;
+              border-radius: var(--radius-base);
+              font-weight: var(--font-weight-bold);
+              cursor: pointer;
+              transition: all 0.3s ease;
+              text-decoration: none;
+              border: 2px solid transparent;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+          }
+
+          .btn-primary {
+              background: var(--color-white);
+              color: var(--color-primary-hover);
+              border-color: var(--color-white);
+              box-shadow: var(--shadow-lg);
+              position: relative;
+              padding-right: 42px;
+          }
+
+          .btn-primary:hover {
+              background: var(--color-primary);
+              color: var(--color-white);
+              border-color: var(--color-white);
+              transform: translateY(-4px);
+              box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.4);
+          }
+
+          .btn-primary::after {
+              content: '→';
+              position: absolute;
+              right: 15px;
+              font-size: 1.2em;
+              transition: transform 0.3s ease;
+          }
+
+          .btn-primary:hover::after {
+              transform: translateX(4px);
+          }
+
+          .btn-secondary {
+    background: transparent;
+    color: var(--color-text); /* Dark Text on Light Green */
+    border: 1px solid var(--color-text); /* Dark Border on Light Green */
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background: var(--color-white);
+    color: var(--color-primary);
+    border: 1px solid var(--color-white);
+}
+
+          .btn-secondary:hover {
+              background: rgba(255, 255, 255, 0.15);
+              color: var(--color-white);
+              transform: translateY(-2px);
+              box-shadow: var(--shadow-md);
+          }
+
+          .footer {
+              background-color: var(--color-surface);
+              border-top: 1px solid var(--color-border);
+              padding: var(--space-32) var(--space-24);
+              text-align: center;
+          }
+
+          .footer p {
+              color: var(--color-text-secondary);
+              font-size: 12px;
+          }
+
+          /* --- CAROUSEL STYLES (Indent/Wrap FIX) --- */
+          .carousel-container {
+              position: relative;
+              overflow: hidden;
+              margin-bottom: var(--space-24);
+          }
+
+          .carousel-track {
+              display: flex;
+              gap: var(--space-24);
+              overflow-x: scroll;
+              scroll-behavior: smooth;
+              padding-bottom: var(--space-16);
+              scroll-snap-type: x mandatory;
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+          }
+
+          .carousel-track::-webkit-scrollbar {
+              display: none;
+          }
+
+          .carousel-item {
+              min-width: 320px;
+              flex-shrink: 0;
+              padding: var(--space-24);
+              background-color: var(--color-surface);
+              border: 1px solid var(--color-card-border);
+              border-radius: var(--radius-lg);
+              scroll-snap-align: start;
+              box-shadow: var(--shadow-sm);
+          }
+
+          .carousel-item h4 {
+              font-size: var(--font-size-xl);
+              color: var(--color-primary);
+              margin-bottom: var(--space-8);
+          }
+
+          .carousel-item .company {
+              font-size: var(--font-size-lg);
+              margin-bottom: var(--space-4);
+              color: var(--color-text);
+          }
+
+          .carousel-item .date {
+              font-size: var(--font-size-base);
+              color: var(--color-text-secondary);
+              margin-bottom: var(--space-16);
+          }
+
+          .carousel-item ul {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+          }
+
+          /* === CRUCIAL FIX: Hanging-indent style for bullets ===
+             - padding-left equals bullet area so wrapped lines align
+             - bullet placed absolutely at left: 0
+             - white-space normal and word-break ensure wrapping on small screens
+             - top offset tuned so bullet vertically aligns with first line
+          */
+          .carousel-item li {
+              padding-left: 1.6em;            /* space for the bullet */
+              position: relative;
+              line-height: 1.6;
+              color: var(--color-text-secondary);
+              margin-bottom: var(--space-8);
+              display: block;
+              white-space: normal;
+              word-break: break-word;
+              /* Ensure the block will allow natural wrapping */
+          }
+
+          .carousel-item li::before {
+              content: '•';
+              position: absolute;
+              left: 0;
+              top: 0.12em;                    /* small tweak to vertically center bullet with first line */
+              color: var(--color-primary);
+              font-weight: var(--font-weight-bold);
+              font-size: 1.05em;
+              line-height: 1;
+              transform: translateY(0);
+          }
+
+          /* Navigation Controls */
+          .carousel-nav {
+              background: var(--color-primary);
+              color: var(--color-white);
+              border: none;
+              width: 40px;
+              height: 40px;
+              border-radius: var(--radius-full);
+              font-size: 24px;
+              font-weight: bold;
+              cursor: pointer;
+              transition: background 0.3s, transform 0.2s;
+              line-height: 1;
+          }
+
+          .carousel-nav:hover:not(:disabled) {
+              background-color: var(--color-primary-hover);
+              transform: scale(1.05);
+          }
+
+          .carousel-nav:disabled {
+              background: var(--color-surface);
+              color: var(--color-text-secondary);
+              cursor: not-allowed;
+              border: 1px solid var(--color-card-border);
+              opacity: 0.6;
+          }
+
+          .carousel-indicator {
+              width: 10px;
+              height: 10px;
+              border-radius: var(--radius-full);
+              background-color: var(--color-text-secondary);
+              border: none;
+              margin: 0 4px;
+              cursor: pointer;
+              transition: background-color 0.3s, transform 0.3s;
+          }
+
+          .carousel-indicator.active {
+              background-color: var(--color-primary);
+              transform: scale(1.2);
+          }
+
+          .flex {
+              display: flex;
+          }
+
+          .justify-between {
+              justify-content: space-between;
+          }
+
+          .items-center {
+              align-items: center;
+          }
+
+          .mt-4 {
+              margin-top: var(--space-16);
+          }
+
+          .p-2 {
+              padding: var(--space-8);
+          }
+
+          .space-x-2>*+* {
+              margin-left: var(--space-8);
+          }
+
+
+          /* --- SWIPE-DOWN BUTTON STYLING (Flow-Based) --- */
+          .swipe-down-button {
+              position: static;
+              margin-top: var(--space-48);
+              margin-bottom: var(--space-48);
+              margin-left: auto;
+              margin-right: auto;
+              background: var(--color-secondary);
+              color: var(--color-white);
+              font-size: var(--font-size-lg);
+              font-weight: var(--font-weight-medium);
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              border: 1px solid var(--color-primary);
+              border-radius: var(--radius-full);
+              padding: 10px 20px;
+              display: inline-flex;
+              align-items: center;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              z-index: 1;
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+          }
+
+          .swipe-down-button:hover {
+              background: var(--color-primary-hover);
+              transform: translateY(-2px);
+              box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+          }
+
+          .swipe-down-button .arrows {
+              font-size: 1.5em;
+              line-height: 1;
+              margin-left: 8px;
+              display: inline-block;
+              animation: bounce 1.5s infinite;
+          }
+
+          @keyframes bounce {
+              0%,
+              20%,
+              50%,
+              80%,
+              100% {
+                  transform: translateY(0);
+              }
+
+              40% {
+                  transform: translateY(4px);
+              }
+
+              60% {
+                  transform: translateY(2px);
+              }
+          }
+
+          /* --- END SWIPE-DOWN BUTTON STYLING --- */
+
+
+          /* --- BACK-TO-TOP FAB STYLES --- */
+          .back-to-top-fab {
+              position: fixed;
+              bottom: var(--space-32);
+              right: var(--space-24);
+              width: 56px;
+              height: 56px;
+              border-radius: var(--radius-full);
+              background-color: var(--color-secondary);
+              color: var(--color-white);
+              border: none;
+              box-shadow: var(--shadow-md);
+              font-size: 24px;
+              font-weight: var(--font-weight-bold);
+              cursor: pointer;
+              opacity: 0;
+              visibility: hidden;
+              transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+              z-index: 100;
+          }
+
+          .back-to-top-fab.visible {
+              opacity: 1;
+              visibility: visible;
+              transform: translateY(0);
+          }
+
+          .back-to-top-fab:hover {
+              background-color: var(--color-primary-hover);
+              transform: translateY(-2px);
+              box-shadow: var(--shadow-lg);
+          }
+
+          /* --- END BACK-TO-TOP FAB STYLES --- */
+
+          /* Media Queries (Mobile Fixes) */
+          @media (max-width: 768px) {
+              .header {
+                  padding: var(--space-32) var(--space-16) var(--space-48);
+              }
+
+              .container {
+                  padding: var(--space-32) var(--space-16);
+              }
+
+              /* Stack CTA buttons on mobile */
+              .cta-section div {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+              }
+
+              .btn-secondary {
+                  margin-left: 0;
+                  margin-top: var(--space-16);
+                  width: 100%;
+                  max-width: 250px;
+              }
+
+              .btn-primary {
+                  width: 100%;
+                  max-width: 250px;
+                  padding-right: 42px;
+              }
+
+              .carousel-item {
+                  /* Adjust min-width to better fit the screen with padding/margin */
+                  min-width: calc(100vw - 32px - 24px);
+                  /* 100vw - 2 * padding - 1 * gap */
+              }
+
+              .back-to-top-fab {
+                  bottom: var(--space-24);
+                  right: var(--space-16);
+                  width: 48px;
+                  height: 48px;
+                  font-size: 20px;
+              }
+
+              .swipe-down-button {
+                  margin-bottom: var(--space-32);
+                  margin-top: var(--space-32);
+              }
+          }
+
+          /* Animation Keyframes */
+          @keyframes profilePopIn {
+              0% {
+                  transform: scale(0.5);
+                  opacity: 0;
+              }
+
+              60% {
+                  transform: scale(1.1);
+                  opacity: 1;
+              }
+
+              100% {
+                  transform: scale(1);
+              }
+          }
+
+          .profile-pic.initial-load {
+              opacity: 0;
+              transform: scale(0.5);
+          }
+
+          .profile-pic.animate {
+              animation: profilePopIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+          }
+
+          @keyframes nameDescend {
+              0% {
+                  transform: translateY(-30px);
+                  opacity: 0;
+              }
+
+              100% {
+                  transform: translateY(0);
+                  opacity: 1;
+              }
+          }
+
+          .header h1.initial-name-load {
+              opacity: 0;
+              transform: translateY(-30px);
+          }
+
+          .header h1.animate-name {
+              animation: nameDescend 0.6s ease-out forwards;
+          }
+      
+          .carousel-item ul li {
+    white-space: normal;       /* Allow text wrapping */
+    display: list-item;        /* Default list item display */
+    word-wrap: break-word;     /* Break long words if needed */
+    overflow-wrap: anywhere;   /* Break words anywhere to prevent overflow */
+    line-height: 1.4em;        /* Comfortable line spacing */
+    width: 100%;               /* Full width for wrapping */
+    box-sizing: border-box;    /* Include padding in width */
+    padding-right: 10px;       /* Right padding for spacing */
+  }
+  .carousel-item {
+    min-width: 280px;          /* Min width suitable for smaller screens */
+    max-width: 100%;           /* Flexible max width */
+    box-sizing: border-box;
+    word-break: break-word;    /* Break words if needed */
+  }
+
+      </style>
+  </head>
+
+  <body>
+      <header class="header" id="fullScreenHeader">
+          <div class="nav-menu">
+              <button class="menu-toggle" aria-label="Toggle navigation menu" id="menuToggle">
+                  <span class="menu-icon"></span>
+              </button>
+              <ul class="nav-list" id="navList">
+                  <li><a href="#about">About Me</a></li>
+                  <li><a href="#customer-support-experience">Customer Support</a></li>
+                  <li><a href="#work-experience">Work Experience</a></li>
+                  <li><a href="#skills">Skills</a></li>
+                  <li><a href="#contact">Contact</a></li>
+              </ul>
+          </div>
+          <div class="header-content">
+              <img src="https://i.ibb.co/G6fgTgQ/image.png" alt="Chandu Prasad TS"
+                  class="profile-pic initial-load" id="profilePic" />
+              <h1 id="userName" class="initial-name-load">Chandu Prasad TS</h1>
+
+              <div class="social-links">
+                  <a href="linkedin.com/in/chandu-prasad-t-s-b57839a9" target="_blank"
+                      rel="noopener noreferrer" class="social-link" aria-label="LinkedIn Profile">
+                      <svg viewBox="0 0 24 24">
+                          <path
+                              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                      </svg>
+                      LinkedIn
+                  </a>
+                  <a href="mailto:tschanduprasad@gmail.com" class="social-link" aria-label="Email Chandu Prasad TS">
+                      <svg viewBox="0 0 24 24">
+                          <path
+                              d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z" />
+                      </svg>
+                      Email
+                  </a>
+                </div>
+
+                <p class="tagline">
+                    Experienced and results-oriented professional dedicated to optimizing processes 
+    and enhancing team efficiency in CX. 
+    
+    </p>
+
+                <p class="tagline">
+    A decisive leader with strong analytical skills 
+    and adaptability in problem-solving.
+                </p>
+
+                <button class="swipe-down-button" id="swipeDownBtn" aria-label="Swipe down to view full profile">
+                    View Full Profile
+                    <span class="arrows">
+                        »
+                    </span>
+                </button>
+            </div>
+
+      </header>
+
+      <div class="content-wrapper" id="contentWrapper">
+          <main class="container">
+              <section id="about" class="section">
+                  <h2 class="section-title">About Me</h2>
+                  <div class="card">
+                      <p>Experienced and results-oriented professional dedicated to optimizing processes 
+and enhancing team efficiency in CX.</p>
+                      <p>A decisive leader with strong analytical skills 
+and adaptability in problem-solving.</p>
+                      <p>Passionate about improving customer 
+experiences and driving business metrics through collaborative stakeholder 
+engagement.</p>
+                      <p>Specialized in streamlining support ticket processes, resolving pain 
+points, and implementing strategic solutions. Proficient in developing SOPs and 
+workflows to minimize workload and prioritize superior experiences</p>
+                  </div>
+              </section>
+
+
+              <section id="customer-support-experience" class="section">
+                  <h2 class="section-title">Work Experience</h2>
+                  <div class="experience-card">
+                      <h3>Assistant Manager - CX</h3>
+                      <ul>
+                          <li>Led a team to improve customer experience, ensuring KPIs such as CSAT, FRT, and resolution rates were consistently met</li>
+<li>Directed the implementation and optimization of DevRev CRM, collaborating with vendors and internal stakeholders to fix bugs and enable multi-channel support across chat and multiple mailboxes</li>
+<li>Automated end-to-end workflows to reduce manual work, enhancing ticket resolution speed significantly</li>
+<li>Developed Slack alert systems to flag critical tickets and recurring customer issues, fostering timely intervention</li>
+<li>Partnered with Product Managers to translate customer feedback into product roadmap items, prioritizing continuous improvement across support touchpoints</li>
+<li>Maintained and updated support SOPs, improving onboarding efficiency, consistency in service delivery, and team productivity</li>
+<li>Trained and mentored junior team members to handle complex queries and uphold service standards</li>
+<li>Generated detailed performance reports for senior management focused on customer experience and operational metrics</li>
+<li>Identified key pain points in the customer journey, facilitating cross-team collaboration to resolve root causes</li>
+<li>Efficiently managed high-volume ticket resolution within tight deadlines, aligning team efforts with company goals</li>
+
+                      </ul>
+                  </div>
+              </section>
+
+
+              <section id="work-experience" class="section">
+                  <h2 class="section-title">Work Experience</h2>
+                  <div class="carousel-container">
+                      <div class="carousel-track" tabindex="0" id="carouselTrack">
+                          <article class="carousel-item">
+                              <h4>Assistant Manager</h4>
+                              <div class="company"><strong>smallcase</strong></div>
+                              <div class="date">January 2021 - Present</div>
+                              <ul>
+                                  <li>Lead a team to enhance customer experience and ensure adherence to KPIs including CSAT, FRT, and resolution rates. 
+</li>
+                                  <li>Spearheaded the implementation and optimization of DevRev CRM, collaborating with external vendors and internal teams to solve bugs and integrate multi-channel support (chat, 5 mailboxes). 
+
+                                  </li>
+                                  <li>Developed end-to-end workflow automation reducing repetitive manual tasks and boosting resolution time.</li>
+                                  <li>Built Slack-based alert systems to prompt timely action on critical tickets and repetitive customer pain points.<li/>
+                                  <li>Collaborated with Product Managers to resolve recurring issues, convert feedback into roadmap items, and prioritize improvements across the support lifecycle.</li>
+                                  <li>Strategically mapped and maintained support SOPs, improving onboarding, consistency, and productivity across the team.</li>
+                              </ul>
+                          </article>
+                          <article class="carousel-item">
+                              <h4>Operations Specialist</h4>
+                              <div class="company"><strong>Dunzo</strong></div>
+                              <div class="date">April 2019 - January 2021</div>
+                              <ul>
+                                  <li>Efficiently resolved client tickets within tight timeframes.</li>
+                                  <li>Produced reports to ensure team goals aligned with company vision.</li>
+                                  <li>Recognized as Best Employee of the Month for three consecutive months (June - August 2019).</li>
+                              </ul>
+                          </article>
+                          <article class="carousel-item">
+                              <h4>Team Supervisor</h4>
+                              <div class="company"><strong>Team Arcis</strong></div>
+                              <div class="date">July 2016- August 2018</div>
+                              <ul>
+                                  <li>Served as Vice Captain at Team Arcis for over a year, coordinating team activities and supporting strategic decision-making to achieve project goals.</li>
+                                  <li>Contributed as a Technical Team Member at Team Arcis, working on tasks and supporting core technical deliverables.</li>
+                                  <li>Collaborated closely with peers at Dayananda Sagar College of Engineering, strengthening teamwork, problem-solving, and communication skills.</li>
+                              </ul>
+                          </article>
+                          
+                      </div>
+                  </div>
+
+                  <div id="experience-controls" class="flex justify-between items-center mt-4 p-2">
+
+                      <button class="carousel-nav" id="prev-btn" aria-label="Previous Work Experience">
+                          ‹
+                      </button>
+
+                      <div id="experience-indicators" class="flex items-center space-x-2">
+                      </div>
+
+                      <button class="carousel-nav" id="next-btn" aria-label="Next Work Experience">
+                          ›
+                      </button>
+                  </div>
+              </section>
+
+              <section id="skills" class="section">
+                  <h2 class="section-title">Skills</h2>
+                  <div class="skills-grid">
+                      <div class="skill-category" id="soft-skills">
+                          <h3>CX & Leadership Skills</h3>
+                          <ul>
+                              <li>Workflow automation & process design for scalable CX operations</li>
+                              <li>Customer journey optimization across touchpoints to reduce friction and improve CSAT</li>
+                              <li>Customer experience strategy and continuous improvement mindset</li>
+                              <li>Team management and cross-functional collaboration</li>
+                              <li>People leadership, coaching, and mentoring</li>
+                              <li>Reporting, analysis, and data‑driven decision-making</li>
+                              <li>Technical customer support and issue resolution</li>
+                              <li>Operations management and stakeholder coordination</li>
+                              <li>Strong analytical and problem‑solving skills</li>
+                          </ul>
+                      </div>
+                      <div class="skill-category" id="tech-skills">
+                          <h3>Technical Skills</h3>
+                          <ul>
+                              <li>Figma – UI flows, wireframing, and interaction design</li>
+                              <li>Wireframing & low‑fidelity prototyping for CX/process design</li>
+                              <li>SQL – basic querying and analysis for support data</li>
+                              <li>Microsoft Excel – reporting, dashboards, and data analysis</li>
+                              <li>Google Workspace (Docs, Sheets, Slides, Forms) for documentation and collaboration</li>
+                              <li>Automation‑oriented thinking using tools/CRM workflows for ticket routing and SLAs</li>
+                          </ul>
+                      </div>
+                  </div>
+              </section>
+
+
+              <section id="contact" class="cta-section">
+                  <h2>Let's Work Together</h2>
+                  <p>I'm always open to discussing new opportunities and bringing value to customer service teams.</p>
+                  <div>
+                      <a href="mailto:tschanduprasad@gmail.com?subject=Let's Connect" class="btn btn-primary">Get In
+                          Touch</a>
+                      <a href="https://drive.google.com/file/d/1V0dfRNU9egQlGz3pnpe6X7X9SaAsQB-G/view?usp=drivesdk"
+                          class="btn btn-secondary">View CV</a>
+                  </div>
+              </section>
+
+          </main>
+
+
+          <footer class="footer">
+              <p>&copy; 2025 Chandu Prasad TS. All rights reserved.</p>
+          </footer>
+      </div>
+
+      <button class="back-to-top-fab" id="backToTopFab" aria-label="Back to Profile Card">
+          ↑
+      </button>
+
+
+      <script>
+          // ----------------------------------------------------
+          // START: SWIPE DOWN/UP LOGIC & FAB CONTROL
+          // ----------------------------------------------------
+          const swipeDownBtn = document.getElementById('swipeDownBtn');
+          const backToTopFab = document.getElementById('backToTopFab');
+          const headerHeight = window.innerHeight;
+
+          function openContent() {
+              document.body.classList.add('header-open');
+              if (swipeDownBtn) swipeDownBtn.style.display = 'none';
+          }
+
+          function closeContent() {
+              document.body.classList.remove('header-open');
+              window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+              });
+              setTimeout(() => {
+                  if (swipeDownBtn) swipeDownBtn.style.display = 'inline-flex';
+                  backToTopFab.classList.remove('visible');
+              }, 500);
+          }
+
+          // 1. Swipe Down Button Listener
+          swipeDownBtn.addEventListener('click', openContent);
+
+          // 2. Back-to-Top FAB Listener
+          backToTopFab.addEventListener('click', () => {
+              window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+              });
+              setTimeout(closeContent, 500);
+          });
+
+
+          // 3. Show/Hide FAB on Scroll
+          window.addEventListener('scroll', () => {
+              if (document.body.classList.contains('header-open') && window.scrollY > headerHeight * 0.1) {
+                  backToTopFab.classList.add('visible');
+              } else {
+                  backToTopFab.classList.remove('visible');
+              }
+          });
+
+
+          // Smooth Scrolling and Menu Close Logic
+          document.querySelectorAll('.nav-list a[href^="#"]').forEach(anchor => {
+              anchor.addEventListener('click', function (e) {
+                  e.preventDefault();
+
+                  openContent();
+
+                  const navList = document.getElementById('navList');
+                  const menuToggle = document.getElementById('menuToggle');
+                  if (navList.classList.contains('open')) {
+                      navList.classList.remove('open');
+                      menuToggle.classList.remove('active');
+                  }
+
+                  const target = document.querySelector(this.getAttribute('href'));
+                  if (target) {
+                      setTimeout(() => {
+                          target.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start'
+                          });
+                      }, 800);
+                  }
+              });
+          });
+
+
+          // Hamburger Menu Toggle Logic
+          const menuToggle = document.getElementById('menuToggle');
+          const navList = document.getElementById('navList');
+
+          menuToggle.addEventListener('click', () => {
+              navList.classList.toggle('open');
+              menuToggle.classList.toggle('active');
+          });
+
+          // ----------------------------------------------------
+          // END: SWIPE DOWN/UP LOGIC & FAB CONTROL
+          // ----------------------------------------------------
+
+
+          // ----------------------------------------------------
+          // START: CAROUSEL LOGIC
+          // ----------------------------------------------------
+          const track = document.getElementById('carouselTrack');
+          const prevBtn = document.getElementById('prev-btn');
+          const nextBtn = document.getElementById('next-btn');
+          const indicatorsContainer = document.getElementById('experience-indicators');
+          const items = document.querySelectorAll('.carousel-item');
+          const itemCount = items.length;
+          let currentIndex = 0;
+          let itemWidth = 0;
+
+          function renderIndicators() {
+              indicatorsContainer.innerHTML = '';
+              for (let i = 0; i < itemCount; i++) {
+                  const indicator = document.createElement('button');
+                  indicator.classList.add('carousel-indicator');
+                  indicator.setAttribute('aria-label', `Go to work experience ${i + 1}`);
+                  indicator.dataset.index = i;
+
+                  if (i === currentIndex) {
+                      indicator.classList.add('active');
+                  }
+
+                  indicator.addEventListener('click', (e) => {
+                      const targetIndex = parseInt(e.target.dataset.index);
+                      scrollToIndex(targetIndex);
+                  });
+
+                  indicatorsContainer.appendChild(indicator);
+              }
+          }
+
+          function updateCarouselState() {
+              document.querySelectorAll('.carousel-indicator').forEach((indicator, index) => {
+                  indicator.classList.toggle('active', index === currentIndex);
+              });
+
+              // Check if scroll position is at start or end
+              const isAtStart = track.scrollLeft < 10;
+              const isAtEnd = track.scrollWidth - track.scrollLeft - track.clientWidth < 10;
+
+              prevBtn.disabled = isAtStart;
+              nextBtn.disabled = isAtEnd;
+
+              // Double check: if it's the first or last index, disable buttons
+              if (currentIndex === 0) prevBtn.disabled = true;
+              if (currentIndex === itemCount - 1) nextBtn.disabled = true;
+          }
+
+
+          function scrollToIndex(index) {
+              if (index < 0 || index >= itemCount) return;
+
+              // Recalculate itemWidth (including gap of 24px)
+              if (items.length > 0) {
+                  // Calculate item width + 24px gap. Use getBoundingClientRect().width for accuracy.
+                  itemWidth = items[0].getBoundingClientRect().width + 24;
+              }
+
+              const scrollAmount = index * itemWidth;
+              track.scroll({
+                  left: scrollAmount,
+                  behavior: 'smooth'
+              });
+              currentIndex = index;
+              updateCarouselState();
+          }
+
+          // Use a debounced/throttle function for resize and load to recalculate itemWidth
+          function recalculateAndScroll() {
+              if (items.length > 0) {
+                  // Calculate item width + 24px gap. Use getBoundingClientRect for width.
+                  itemWidth = items[0].getBoundingClientRect().width + 24;
+                  // Scroll to the current index based on the new itemWidth
+                  track.scroll({
+                      left: currentIndex * itemWidth,
+                      behavior: 'auto'
+                  });
+                  updateCarouselState();
+              }
+          }
+
+          window.addEventListener('resize', recalculateAndScroll);
+
+
+          prevBtn.addEventListener('click', () => {
+              scrollToIndex(currentIndex - 1);
+          });
+
+          nextBtn.addEventListener('click', () => {
+              scrollToIndex(currentIndex + 1);
+          });
+
+          track.addEventListener('scroll', () => {
+              if (items.length === 0) return;
+              const scrollLeft = track.scrollLeft;
+
+              // Recalculate item width including gap (24px)
+              const itemFullWidth = items[0].offsetWidth + 24;
+
+              // Calculate the closest index based on scroll position
+              let newIndex = Math.round(scrollLeft / itemFullWidth);
+
+              newIndex = Math.max(0, Math.min(itemCount - 1, newIndex));
+
+              if (newIndex !== currentIndex) {
+                  currentIndex = newIndex;
+                  updateCarouselState();
+              }
+          });
+
+
+          // Initialization on load
+          window.addEventListener('load', () => {
+              renderIndicators();
+              recalculateAndScroll(); // Initial check/calculation
+
+              // Animations
+              const profilePic = document.getElementById('profilePic');
+              if (profilePic) {
+                  profilePic.classList.remove('initial-load');
+                  profilePic.classList.add('animate');
+              }
+
+              const userName = document.getElementById('userName');
+              if (userName) {
+                  setTimeout(() => {
+                      userName.classList.remove('initial-name-load');
+                      userName.classList.add('animate-name');
+                  }, 300);
+              }
+          });
+
+          // ----------------------------------------------------
+          // END: CAROUSEL LOGIC
+          // ----------------------------------------------------
+      </script>
+
+  </body>
+
+  </html>
