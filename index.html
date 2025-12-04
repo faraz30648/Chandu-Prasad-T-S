@@ -1147,6 +1147,18 @@
     padding-left: 0 !important;
 }
 
+/* === FIX: Remove white bottom line on mobile === */
+body::before,
+body::after {
+    position: fixed;
+    inset: 0;              /* replaces top/left/right/bottom safely */
+    height: 100vh !important; 
+    width: 100vw !important;
+    max-height: 100vh;
+}
+html, body {
+    background-color: #000;  /* protect against fallback gap */
+}
 
     </style>
 </head>
