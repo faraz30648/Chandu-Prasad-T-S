@@ -359,7 +359,7 @@
             --color-text: rgba(19, 52, 59, 1);
             --color-text-secondary: rgba(98, 108, 113, 0.8);
             --color-primary: rgba(0, 0, 0, 1);
-            --color-primary-hover: rgba(29, 116, 128, 1);
+            --color-primary-hover: rgb(128, 128, 128);
             --color-border: rgba(94, 82, 64, 0.1);
             --color-card-border: rgba(255, 255, 255, 0.08);
             --font-family-base: "Montserrat", "FKGroteskNeue", "Inter", sans-serif;
@@ -445,10 +445,12 @@
 
         /* --- SWIPE-DOWN FIX: STRUCTURAL CSS --- */
         body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* prevents sideways scroll but fixes bottom white line */
+    overflow-y: auto;   /* allow page to grow normally */
+}
+
 
         body.header-open {
             overflow-y: auto;
