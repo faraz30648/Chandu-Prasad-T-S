@@ -9,6 +9,323 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
+
+/* ================================
+   CLEAN CAROUSEL SYSTEM (FINAL)
+   ================================ */
+
+/* Carousel container structure */
+.carousel-container {
+    position: relative;
+}
+
+/* Horizontal track */
+.carousel-track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: 0 0 16px 0;
+    scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* === CARD DESIGN === */
+.carousel-item {
+    position: relative;
+    min-width: calc(100% - 60px); /* next card peeks */
+    height: 150px;                /* uniform card height */
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* center vertically */
+    padding-right: 110px;    /* create space for bigger logo */
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Work logo inside card */
+.carousel-item .work-logo {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+
+    width: 74px;
+    height: 74px;
+
+    object-fit: contain;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.1);
+    pointer-events: none;
+}
+
+
+/* Title / Company / Date */
+.carousel-item h4 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: white;
+}
+.carousel-item .company {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: rgba(255,255,255,0.95);
+}
+.carousel-item .date {
+    font-size: 16px;
+    margin-bottom: 22px !important;
+    color: rgba(255,255,255,0.85);
+}
+
+
+/* === NAVIGATION BUTTONS === */
+.carousel-nav {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    color: black;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+.carousel-nav:hover:not(:disabled) {
+    background: black;
+    color: white;
+}
+.carousel-nav:disabled {
+    background: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.05);
+    cursor: not-allowed;
+}
+
+/* === DOT INDICATORS === */
+.carousel-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    border: none;
+    transition: 0.3s;
+}
+
+.carousel-indicator.active {
+    background: white;
+    transform: scale(1.25);
+}
+
+/* === MOBILE REFINEMENTS === */
+@media (max-width: 768px) {
+    .carousel-item {
+        min-width: calc(100% - 50px);
+        height: 150px;
+    }
+}
+
+
+/* Next card peek space */
+.carousel-track {
+    padding-right: 32px;
+}
+
+/* Text layout inside card */
+.carousel-item h4,
+.carousel-item .company,
+.carousel-item .date {
+    margin: 0 0 4px 0;
+}
+
+/* Completely hide preview bullets ONLY in carousel cards */
+.carousel-item ul {
+    display: none !important;
+}
+  
+   
+    .modal-header-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.modal-logo-left {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.modal-header-text {
+    flex: 1;
+}
+
+.modal-role {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.modal-company {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.modal-date {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+    
+    /* Premium Modal Layout */
+.modal-header-block {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 18px;
+    display: block;
+    margin: auto;
+    object-fit: contain;
+}
+
+.modal-role {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.modal-company {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    opacity: 0.9;
+}
+
+.modal-date {
+    font-size: 14px;
+    margin-bottom: 16px;
+    opacity: 0.85;
+}
+
+/* Bullet styling */
+.modal-bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-bullets li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.modal-bullets li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+    
+    /* --- Modal Content Improvements --- */
+.work-modal-box img {
+    max-width: 160px !important;
+    max-height: 160px !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 20px auto;
+    border-radius: 12px;
+}
+
+#workModalContent {
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+/* Better spacing inside modal */
+#workModalContent h4,
+#workModalContent .company,
+#workModalContent .date {
+    margin-bottom: 6px;
+}
+
+#workModalContent ul {
+    margin-top: 10px;
+}
+
+    
+    
+      /* --- Work Experience Modal --- */
+.work-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.work-modal.active {
+    display: flex;
+}
+
+.work-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(10px);
+}
+
+.work-modal-box {
+    position: relative;
+    max-width: 520px;
+    width: 90%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 24px;
+    color: white;
+    box-shadow: 0 8px 26px rgba(0,0,0,0.4);
+    backdrop-filter: blur(16px);
+    animation: fadeInScale 0.25s ease-out;
+}
+
+.work-modal-close {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+@keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.92); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
         /* CSS Variables - Light Mode Default */
         :root {
             --color-white: rgba(255, 255, 255, 1);
@@ -91,13 +408,15 @@
 
         /* dim overlay to improve contrast for text */
         body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.22);
-            z-index: -1;
-            pointer-events: none;
-        }
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.50); /* stronger soft black veil */
+    backdrop-filter: blur(2px);      /* gives depth */
+    z-index: -1;
+    pointer-events: none;
+}
+
 
         /* --- SWIPE-DOWN FIX: STRUCTURAL CSS --- */
         body {
@@ -309,14 +628,23 @@
     left: 0;
     width: 220px;
     height: 100%;
-    background: rgba(15, 15, 15, 0.95); /* almost opaque black */
+    background: rgba(15, 15, 15, 0.95); /* still opaque */
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
-    box-shadow: 4px 0 12px rgba(0,0,0,0.5);
+    box-shadow: 0 0 40px rgba(0,0,0,0.65); /* slight depth */
     padding-top: 80px;
     z-index: 1000;
-    backdrop-filter: none; /* remove glass blur */
+    overflow: hidden; /* IMPORTANT for masking the veil */
 }
+.nav-list::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);  /* soft black veil */
+    backdrop-filter: blur(18px);   /* translucent glassy blur */
+    z-index: -1;                   /* behind menu items */
+}
+
 
 
         .nav-list.open {
@@ -503,13 +831,14 @@
         }
 
         .btn-primary {
-            background: var(--color-white);
-            color: var(--color-primary-hover);
-            border-color: var(--color-white);
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            padding-right: 42px;
+            background: transparent;
+            color: rgba(255,255,255,0.95);
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
         }
+
 
         .btn-primary:hover {
             background: var(--color-primary);
@@ -556,133 +885,6 @@
             backdrop-filter: blur(6px);
         }
 
-        /* --- CAROUSEL STYLES (Indent/Wrap FIX) --- */
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            margin-bottom: var(--space-24);
-        }
-
-        .carousel-track {
-            display: flex;
-            gap: var(--space-24);
-            overflow-x: scroll;
-            scroll-behavior: smooth;
-            padding-bottom: var(--space-16);
-            scroll-snap-type: x mandatory;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .carousel-track::-webkit-scrollbar {
-            display: none;
-        }
-
-        .carousel-item {
-            min-width: 320px;
-            flex-shrink: 0;
-            padding: var(--space-24);
-            background-color: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: var(--radius-lg);
-            scroll-snap-align: start;
-            box-shadow: var(--shadow-sm);
-            color: rgba(255,255,255,0.95);
-        }
-
-        .carousel-item h4 {
-            font-size: var(--font-size-xl);
-            color: var(--color-white);
-            margin-bottom: var(--space-8);
-        }
-
-        .carousel-item .company {
-            font-size: var(--font-size-lg);
-            margin-bottom: var(--space-4);
-            color: rgba(255,255,255,0.95);
-        }
-
-        .carousel-item .date {
-            font-size: var(--font-size-base);
-            color: rgba(255,255,255,0.8);
-            margin-bottom: var(--space-16);
-        }
-
-        .carousel-item ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        /* Hanging-indent style for bullets */
-        .carousel-item li {
-            padding-left: 1.6em;
-            position: relative;
-            line-height: 1.6;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: var(--space-8);
-            display: block;
-            white-space: normal;
-            word-break: break-word;
-        }
-
-        .carousel-item li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            top: 0.12em;
-            color: var(--color-white);
-            font-weight: var(--font-weight-bold);
-            font-size: 1.05em;
-            line-height: 1;
-            transform: translateY(0);
-        }
-
-        /* Navigation Controls */
-        .carousel-nav {
-            background: rgba(255,255,255,0.9);
-            color: var(--color-primary);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-full);
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            line-height: 1;
-        }
-
-        .carousel-nav:hover:not(:disabled) {
-            background-color: var(--color-primary-hover);
-            color: var(--color-white);
-            transform: scale(1.05);
-        }
-
-        .carousel-nav:disabled {
-            background: rgba(255,255,255,0.06);
-            color: rgba(255,255,255,0.45);
-            cursor: not-allowed;
-            border: 1px solid rgba(255,255,255,0.04);
-            opacity: 0.6;
-        }
-
-        .carousel-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: var(--radius-full);
-            background-color: rgba(255,255,255,0.35);
-            border: none;
-            margin: 0 4px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .carousel-indicator.active {
-            background-color: rgba(255,255,255,0.95);
-            transform: scale(1.2);
-        }
-
         .flex {
             display: flex;
         }
@@ -710,41 +912,48 @@
 
         /* --- SWIPE-DOWN BUTTON STYLING (Flow-Based) --- */
         .swipe-down-button {
-            position: static;
-            margin-top: var(--space-48);
-            margin-bottom: var(--space-48);
-            margin-left: auto;
-            margin-right: auto;
-            background: rgba(255,255,255,0.12);
-            color: var(--color-white);
-            font-size: var(--font-size-lg);
-            font-weight: var(--font-weight-medium);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: var(--radius-full);
-            padding: 10px 20px;
-            display: inline-flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-        }
+    position: static;
+    margin-top: var(--space-32);
+    margin-bottom: var(--space-32);
+    margin-left: auto;
+    margin-right: auto;
+
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 14px;
+
+    padding: 12px 28px;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    transition: all 0.28s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+}
 
         .swipe-down-button:hover {
-            background: rgba(255,255,255,0.18);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-        }
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.55);
+    border-color: rgba(255,255,255,0.45);
+}
+
 
         .swipe-down-button .arrows {
-            font-size: 1.5em;
-            line-height: 1;
-            margin-left: 8px;
-            display: inline-block;
-            animation: bounce 1.5s infinite;
-        }
+    font-size: 18px;
+    animation: bounce 1.4s infinite ease;
+}
+
 
         @keyframes bounce {
             0%,
@@ -798,9 +1007,7 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Media Queries (Mobile Fixes) */
-        @media (max-width: 768px) {
-            .header {
+        .header {
                 padding: var(--space-32) var(--space-16) var(--space-48);
             }
 
@@ -828,11 +1035,7 @@
                 padding-right: 42px;
             }
 
-            .carousel-item {
-                /* Adjust min-width to better fit the screen with padding/margin */
-                min-width: calc(100vw - 32px - 24px);
-                /* 100vw - 2 * padding - 1 * gap */
-            }
+            
 
             .back-to-top-fab {
                 bottom: var(--space-24);
@@ -895,23 +1098,28 @@
             animation: nameDescend 0.6s ease-out forwards;
         }
 
-        .carousel-item ul li {
-            white-space: normal;
-            display: list-item;
-            word-wrap: break-word;
-            overflow-wrap: anywhere;
-            line-height: 1.4em;
-            width: 100%;
-            box-sizing: border-box;
-            padding-right: 10px;
-        }
+        
+         #workModalContent::-webkit-scrollbar {
+    display: none;
+}
 
-        .carousel-item {
-            min-width: 280px;
-            max-width: 100%;
-            box-sizing: border-box;
-            word-break: break-word;
-        }
+#workModalContent {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Remove bullet pointers from carousel completely */
+.carousel-item ul {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.carousel-item ul li::before {
+    display: none !important;
+    content: "";
+}
+.carousel-item ul li {
+    padding-left: 0 !important;
+}
+
 
     </style>
 </head>
@@ -1015,6 +1223,8 @@
                 <div class="carousel-container">
                     <div class="carousel-track" tabindex="0" id="carouselTrack">
                         <article class="carousel-item">
+                            <img class="work-logo" src="https://i.ibb.co/99XFKSFT/2025-11-30-T023136-157.jpg">
+
                             <h4>Assistant Manager</h4>
                             <div class="company"><strong>smallcase</strong></div>
                             <div class="date">January 2021 - Present</div>
@@ -1028,6 +1238,8 @@
                             </ul>
                         </article>
                         <article class="carousel-item">
+                            <img class="work-logo" src="https://i.ibb.co/bj4W7nDN/dunzo-seeklogo.png">
+
                             <h4>Operations Specialist</h4>
                             <div class="company"><strong>Dunzo</strong></div>
                             <div class="date">April 2019 - January 2021</div>
@@ -1038,6 +1250,8 @@
                             </ul>
                         </article>
                         <article class="carousel-item">
+                            <img class="work-logo" src="https://i.ibb.co/BKPn385q/image.png">
+
                             <h4>Team Supervisor</h4>
                             <div class="company"><strong>Team Arcis</strong></div>
                             <div class="date">July 2016- August 2018</div>
@@ -1366,7 +1580,64 @@
         // ----------------------------------------------------
         // END PARALLAX
         // ----------------------------------------------------
-    </script>
+        
+        </script>
+        
+     <!-- WORK EXPERIENCE MODAL -->
+<div id="workModal" class="work-modal">
+    <div class="work-modal-backdrop"></div>
+    <div class="work-modal-box">
+        <button id="workModalClose" class="work-modal-close">Close</button>
+        <div id="workModalContent"></div>
+    </div>
+</div>
+
+<script>
+// ---- WORK EXPERIENCE MODAL ----
+const workModal = document.getElementById("workModal");
+const workModalContent = document.getElementById("workModalContent");
+const workModalClose = document.getElementById("workModalClose");
+
+document.querySelectorAll(".carousel-item").forEach(card => {
+    card.addEventListener("click", () => {
+
+        const logo = card.querySelector(".work-logo")?.src || "";
+        const role = card.querySelector("h4")?.innerText || "";
+        const company = card.querySelector(".company")?.innerText || "";
+        const date = card.querySelector(".date")?.innerText || "";
+        const bullets = [...card.querySelectorAll("ul li")].map(li => li.innerText);
+
+        workModalContent.innerHTML = `
+            <div class="modal-header-row">
+                <img class="modal-logo-left" src="${logo}" alt="">
+                <div class="modal-header-text">
+                    <h3 class="modal-role">${role}</h3>
+                    <div class="modal-company">${company}</div>
+                    <div class="modal-date">${date}</div>
+                </div>
+            </div>
+
+            <ul class="modal-bullets">
+                ${bullets.map(b => `<li>${b}</li>`).join("")}
+            </ul>
+        `;
+
+        workModal.classList.add("active");
+    });
+});
+
+workModalClose.addEventListener("click", () => {
+    workModal.classList.remove("active");
+});
+
+workModal.addEventListener("click", (e) => {
+    if (e.target.classList.contains("work-modal")) {
+        workModal.classList.remove("active");
+    }
+});
+</script>
+
+
 
 </body>
 
