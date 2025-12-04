@@ -294,7 +294,17 @@
     margin-top: 10px;
 }
 
-    
+    /* Fix background white line on mobile */
+@media (max-width: 768px) {
+  body {
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-attachment: scroll !important;
+    background-position: center top !important;
+    min-height: 100vh !important;
+  }
+}
+
     
       /* --- Work Experience Modal --- */
 .work-modal {
