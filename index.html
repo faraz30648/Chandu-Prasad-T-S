@@ -1147,19 +1147,20 @@
     padding-left: 0 !important;
 }
 
-/* === FIX: Remove white bottom line on mobile === */
+/* === FIX: Remove white bottom line on mobile WITHOUT breaking background === */
 body::before,
 body::after {
     position: fixed;
-    inset: 0;              /* replaces top/left/right/bottom safely */
-    height: 100vh !important; 
+    inset: 0;                      /* reliably fills viewport */
+    height: 100vh !important;
     width: 100vw !important;
     max-height: 100vh;
 }
-html, body {
-    background-color: #000;  /* protect against fallback gap */
-}
 
+body::before {
+    background-position: center calc(50% + var(--bg-shift)) !important;
+    background-size: cover !important;
+}
     </style>
 </head>
 
