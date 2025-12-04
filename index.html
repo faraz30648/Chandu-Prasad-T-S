@@ -1161,6 +1161,28 @@ body::before {
     background-position: center calc(50% + var(--bg-shift)) !important;
     background-size: cover !important;
 }
+
+/* Prevent background scroll before "View Full Profile" */
+html,
+body {
+    overflow: hidden;
+    height: 100%;
+}
+
+/* Allow scroll ONLY after the header opens */
+body.header-open,
+html.header-open {
+    overflow-y: auto;
+    height: auto;
+}
+/* Prevent scroll when modal is open */
+body.modal-open,
+html.modal-open {
+    overflow: hidden !important;
+    height: 100%;
+    touch-action: none;
+}
+
     </style>
 </head>
 
@@ -1372,20 +1394,21 @@ body::before {
 
         function openContent() {
             document.body.classList.add('header-open');
+            document.documentElement.classList.add('header-open');
             if (swipeDownBtn) swipeDownBtn.style.display = 'none';
         }
 
         function closeContent() {
-            document.body.classList.remove('header-open');
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            setTimeout(() => {
-                if (swipeDownBtn) swipeDownBtn.style.display = 'inline-flex';
-                backToTopFab.classList.remove('visible');
-            }, 500);
-        }
+    document.body.classList.remove('header-open');
+    document.documentElement.classList.remove('header-open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    setTimeout(() => {
+        if (swipeDownBtn) swipeDownBtn.style.display = 'inline-flex';
+        backToTopFab.classList.remove('visible');
+    }, 500);
+}
+
 
         // 1. Swipe Down Button Listener
         swipeDownBtn.addEventListener('click', openContent);
@@ -1663,18 +1686,27 @@ document.querySelectorAll(".carousel-item").forEach(card => {
         `;
 
         workModal.classList.add("active");
+        document.body.classList.add("modal-open");
+        document.documentElement.classList.add("modal-open");
     });
 });
 
+// Close via button
 workModalClose.addEventListener("click", () => {
     workModal.classList.remove("active");
+    document.body.classList.remove("modal-open");
+    document.documentElement.classList.remove("modal-open");
 });
 
+// Close via clicking outside
 workModal.addEventListener("click", (e) => {
     if (e.target.classList.contains("work-modal")) {
         workModal.classList.remove("active");
+        document.body.classList.remove("modal-open");
+        document.documentElement.classList.remove("modal-open");
     }
 });
+
 </script>
 
 
