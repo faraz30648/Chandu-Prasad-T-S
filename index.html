@@ -172,6 +172,11 @@
     margin: 0 0 4px 0;
 }
 
+/* Completely hide preview bullets ONLY in carousel cards */
+.carousel-item ul {
+    display: none !important;
+}
+  
    
     .modal-header-row {
     display: flex;
@@ -294,17 +299,7 @@
     margin-top: 10px;
 }
 
-    /* Fix background white line on mobile */
-@media (max-width: 768px) {
-  body {
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
-    background-attachment: scroll !important;
-    background-position: center top !important;
-    min-height: 100vh !important;
-  }
-}
-
+    
     
       /* --- Work Experience Modal --- */
 .work-modal {
@@ -1005,6 +1000,7 @@
             }
         }
 
+        /* --- BACK-TO-TOP FAB STYLES --- */
         .back-to-top-fab {
             position: fixed;
             bottom: var(--space-32);
@@ -1332,73 +1328,25 @@ html.modal-open {
 
     .profile-modal-content {
         flex-direction: column;
-        text-align: left !important; /* FIX: left alignment */
+        text-align: center;
         gap: 20px;
     }
 
     .profile-modal-img {
-        width: 130px;
-        height: 130px;
-        transform: translateY(-10px);
-    }
-
-    .pm-name {
-        font-size: 22px; /* smaller name */
-        margin-bottom: 12px;
-        text-align: left !important;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        white-space: normal;
-    }
-
-    .profile-details {
-        width: 100%;
+        width: 140px;
+        height: 140px;
+        transform: translateY(-20px);
     }
 
     .detail-row {
-        font-size: 15px; /* smaller details */
-        line-height: 1.45;
-        text-align: left !important;
-        word-break: break-word; /* prevents overflow */
+        font-size: 16px;
     }
 
-    .contact-icons {
-        justify-content: flex-start !important; /* left align icons */
+    .pm-name {
+        font-size: 26px;
+        margin-bottom: 14px;
     }
 }
-
-
-.contact-icons {
-    margin-top: 18px;
-    display: flex;
-    gap: 16px;
-    justify-content: flex-start;
-}
-
-.icon-link {
-    display: inline-flex;
-    background: rgba(255,255,255,0.15);
-    padding: 10px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.25);
-    backdrop-filter: blur(8px);
-    transition: 0.28s;
-}
-
-.icon-link:hover {
-    background: rgba(255,255,255,0.22);
-    transform: translateY(-3px);
-    box-shadow: 0 0 12px rgba(255,255,255,0.35);
-}
-
-
-.ci {
-    width: 22px;
-    height: 22px;
-    filter: invert(1) brightness(1.4);  /* makes icons pure white */
-    opacity: 0.9;
-}
-
 
     </style>
 </head>
@@ -1949,27 +1897,9 @@ workModal.addEventListener("click", (e) => {
         <p class="detail-row"><strong>Location:</strong> Bangalore</p>
         <p class="detail-row"><strong>Phone:</strong> +91 91645 67759</p>
         <p class="detail-row"><strong>Email:</strong> tschanduprasad@gmail.com</p>
-        
-        <div class="contact-icons">
-
-    <a href="https://www.linkedin.com/in/chandu-prasad-t-s-b57839a9"
-       target="_blank" class="icon-link">
-        <img src="https://cdn.jsdelivr.net/gh/lucide-icons/lucide/icons/linkedin.svg" class="ci">
-    </a>
-
-    <a href="mailto:tschanduprasad@gmail.com" class="icon-link">
-        <img src="https://cdn.jsdelivr.net/gh/lucide-icons/lucide/icons/mail.svg" class="ci">
-    </a>
-
-    <a href="tel:+919164567759" class="icon-link">
-        <img src="https://cdn.jsdelivr.net/gh/lucide-icons/lucide/icons/phone.svg" class="ci">
-    </a>
+    </div>
 
 </div>
-
-
-</div>
-
     </div>
 </div>
 
