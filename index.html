@@ -1182,6 +1182,171 @@ html.modal-open {
     height: 100%;
     touch-action: none;
 }
+/* ===========================
+   PREMIUM PROFILE MODAL (FINAL)
+   =========================== */
+
+.profile-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+}
+
+.profile-modal.active {
+    display: flex;
+}
+
+.profile-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+}
+
+.profile-modal.active .profile-modal-backdrop {
+    opacity: 1;
+}
+
+.profile-modal-box {
+    position: relative;
+    width: 90%;
+    max-width: 680px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 24px;
+    padding: 40px;
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+    backdrop-filter: blur(24px);
+
+    /* Smooth cinematic entrance */
+    transform: translateY(40px) scale(0.92);
+    opacity: 0;
+    transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-modal.active .profile-modal-box {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+
+/* Close button */
+.profile-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 24px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.28);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.profile-modal-close:hover {
+    background: rgba(255,255,255,0.28);
+}
+
+
+/* CONTENT LAYOUT */
+.profile-modal-content {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+
+/* IMAGE */
+.profile-modal-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 18px;
+    object-fit: cover;
+
+    /* cinematic slide-in */
+    transform: translateX(-30px);
+    opacity: 0;
+    transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-modal.active .profile-modal-img {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+/* TEXT CONTENT */
+.profile-details {
+    flex: 1;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-modal.active .profile-details {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* Name */
+.pm-name {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 20px;
+}
+
+
+/* Row styling */
+.detail-row {
+    margin-bottom: 12px;
+    font-size: 17px;
+    line-height: 1.55;
+}
+
+.detail-row strong {
+    color: rgba(255,255,255,0.98);
+    font-weight: 600;
+}
+
+
+/* MOBILE LAYOUT */
+@media (max-width: 640px) {
+
+    .profile-modal-box {
+        padding: 28px 24px;
+    }
+
+    .profile-modal-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .profile-modal-img {
+        width: 140px;
+        height: 140px;
+        transform: translateY(-20px);
+    }
+
+    .detail-row {
+        font-size: 16px;
+    }
+
+    .pm-name {
+        font-size: 26px;
+        margin-bottom: 14px;
+    }
+}
 
     </style>
 </head>
@@ -1707,8 +1872,64 @@ workModal.addEventListener("click", (e) => {
     }
 });
 
+
 </script>
 
+<!-- PROFILE MODAL -->
+<div id="profileModal" class="profile-modal">
+    <div class="profile-modal-backdrop"></div>
+
+    <div class="profile-modal-box">
+        <button id="profileModalClose" class="profile-modal-close">×</button>
+
+        <div class="profile-modal-content">
+
+    <img id="profileModalImg" 
+         class="profile-modal-img"
+         src="https://i.ibb.co/G6fgTgQ/image.png" 
+         alt="Profile">
+
+    <div class="profile-details">
+        <h2 class="pm-name">Chandu Prasad TS</h2>
+
+        <p class="detail-row"><strong>D.O.B:</strong> 16/12/1994</p>
+        <p class="detail-row"><strong>Designation:</strong> Assistant Manager (CX)</p>
+        <p class="detail-row"><strong>Location:</strong> Bangalore</p>
+        <p class="detail-row"><strong>Phone:</strong> +91 91645 67759</p>
+        <p class="detail-row"><strong>Email:</strong> tschanduprasad@gmail.com</p>
+    </div>
+
+</div>
+    </div>
+</div>
+
+
+<script>
+/* === PROFILE MODAL LOGIC (FINAL) === */
+const profilePicHeader = document.getElementById("profilePic");
+const profileModal = document.getElementById("profileModal");
+const profileModalClose = document.getElementById("profileModalClose");
+
+profilePicHeader.addEventListener("click", () => {
+    profileModal.classList.add("active");
+    document.body.classList.add("modal-open");
+    document.documentElement.classList.add("modal-open");
+});
+
+profileModalClose.addEventListener("click", () => {
+    profileModal.classList.remove("active");
+    document.body.classList.remove("modal-open");
+    document.documentElement.classList.remove("modal-open");
+});
+
+profileModal.addEventListener("click", (e) => {
+    if (e.target.classList.contains("profile-modal")) {
+        profileModal.classList.remove("active");
+        document.body.classList.remove("modal-open");
+        document.documentElement.classList.remove("modal-open");
+    }
+});
+</script>
 
 
 </body>
