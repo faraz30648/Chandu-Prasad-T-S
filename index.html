@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Chandu Prasad TS</title>
+    <title>Chandu Prasad TS
+</title>
     <link rel="icon" type="image/png" href="https://i.ibb.co/ZR62T53P/Untitled-design-8-removebg-preview.png">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
-
 /* ================================
    CLEAN CAROUSEL SYSTEM (FINAL)
    ================================ */
@@ -176,8 +176,8 @@
 .carousel-item ul {
     display: none !important;
 }
-  
-   
+
+
     .modal-header-row {
     display: flex;
     align-items: flex-start;
@@ -213,7 +213,7 @@
     opacity: 0.8;
 }
 
-    
+
     /* Premium Modal Layout */
 .modal-header-block {
     text-align: center;
@@ -271,7 +271,7 @@
     opacity: 0.9;
 }
 
-    
+
     /* --- Modal Content Improvements --- */
 .work-modal-box img {
     max-width: 160px !important;
@@ -299,8 +299,8 @@
     margin-top: 10px;
 }
 
-    
-    
+
+
       /* --- Work Experience Modal --- */
 .work-modal {
     position: fixed;
@@ -420,7 +420,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("https://i.ibb.co/G6fgTgQ/image.png");
+            background-image: url("https://i.ibb.co/ZR62T53P/Untitled-design-8-removebg-preview.png");
             background-size: cover;
             background-position: center calc(50% + var(--bg-shift));
             /* smoothing & look */
@@ -875,17 +875,10 @@
             box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.4);
         }
 
-        .btn-primary::after {
-            content: '→';
-            position: absolute;
-            right: 15px;
-            font-size: 1.2em;
-            transition: transform 0.3s ease;
-        }
-
-        .btn-primary:hover::after {
-            transform: translateX(4px);
-        }
+        .btn-primary {
+    position: relative;
+    overflow: hidden;
+}
 
         .btn-secondary {
             background: transparent;
@@ -911,6 +904,35 @@
             color: rgba(255,255,255,0.85);
             backdrop-filter: blur(6px);
         }
+
+      /* ---- Footer Social Icons ---- */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-icons svg {
+            width: 20px;
+            height: 20px;
+            fill: rgba(255,255,255,0.85);
+            opacity: 0.9;
+            transition: 0.25s;
+        }
+
+        .footer-icons a:hover svg {
+            opacity: 1;
+        }
+
+        /* Make footer text not bold */
+        .footer p {
+            font-weight: 400 !important;
+}
 
         .flex {
             display: flex;
@@ -1062,7 +1084,7 @@
                 padding-right: 42px;
             }
 
-            
+
 
             .back-to-top-fab {
                 bottom: var(--space-24);
@@ -1125,7 +1147,7 @@
             animation: nameDescend 0.6s ease-out forwards;
         }
 
-        
+
          #workModalContent::-webkit-scrollbar {
     display: none;
 }
@@ -1176,12 +1198,14 @@ html.header-open {
     height: auto;
 }
 /* Prevent scroll when modal is open */
+/* Correct modal freeze (does NOT break scroll position on close) */
 body.modal-open,
 html.modal-open {
     overflow: hidden !important;
-    height: 100%;
-    touch-action: none;
+    position: fixed;
+    width: 100%;
 }
+
 /* ===========================
    PREMIUM PROFILE MODAL (FINAL)
    =========================== */
@@ -1282,7 +1306,6 @@ html.modal-open {
     opacity: 1;
 }
 
-
 /* TEXT CONTENT */
 .profile-details {
     flex: 1;
@@ -1320,7 +1343,6 @@ html.modal-open {
     opacity: 1;
     transform: translateX(0);
 }
-
 
 /* Name */
 .pm-name {
@@ -1370,6 +1392,8 @@ html.modal-open {
     .pm-name {
         font-size: 26px;
         margin-bottom: 14px;
+        text-align: center;
+        width: 100%;
     }
 }
 
@@ -1411,6 +1435,145 @@ html.modal-open {
     opacity: 1 !important;
 }
 
+/* Disable header snap while closing modals */
+html.modal-fixing-scroll,
+body.modal-fixing-scroll {
+    scroll-behavior: auto !important;
+}
+
+/* Fix: Smaller carousel text on mobile */
+@media (max-width: 480px) {
+    .carousel-item h4 {
+        font-size: 16px !important;
+    }
+    .carousel-item .company {
+        font-size: 14px !important;
+    }
+    .carousel-item .date {
+        font-size: 13px !important;
+    }
+}
+
+/* Fix: Smaller footer text + icons on mobile */
+@media (max-width: 480px) {
+    .footer {
+        padding: 12px !important;
+    }
+
+    .footer-icons svg {
+        width: 12px !important;
+        height: 12px !important;
+    }
+
+    .footer p {
+        font-size: 12px !important;
+    }
+}
+
+    /* Pill styling for role inside Profile Modal */
+.role-pill-wrapper {
+    text-align: center !important;
+    margin-top: -4px;   /* small visual balance */
+    margin-bottom: 12px;
+}
+
+
+.role-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 999px;   /* pill shape */
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: white;
+    backdrop-filter: blur(12px);
+}
+
+    .role-pill:hover {
+    box-shadow: 0 0 12px rgba(255,255,255,0.6);
+    transform: translateY(-2px);
+    transition: 0.25s ease;
+}
+
+/* Center only the name + pill inside details block */
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centers children horizontally */
+}
+
+/* Keep other rows left aligned */
+.detail-row {
+    width: 100%;
+    text-align: left;
+}
+
+
+/* Centered name + pill header */
+.profile-modal-header-center {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-modal-header-center .pm-name {
+    margin-bottom: 8px;
+}
+
+.profile-modal-header-center .role-pill {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+/* Remove unwanted centering from details (it was causing misalignment) */
+.profile-details {
+    align-items: flex-start !important;
+}
+
+/* Make the centered header visually clean */
+.role-pill {
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+    backdrop-filter: blur(12px);
+    transition: 0.25s ease;
+}
+
+.role-pill:hover {
+    box-shadow: 0 0 12px rgba(255,255,255,0.6);
+    transform: translateY(-2px);
+}
+    
+    html { background: #000 !important; }
+
+/* FINAL FIX — CTA arrow only */
+.cta-section .btn-primary {
+    position: relative;
+}
+
+.cta-section .btn-primary::after {
+    content: '→';
+    position: absolute;
+    right: 18px;
+    opacity: 0;
+    transform: translateX(-6px);
+    font-size: 1.1em;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.cta-section .btn-primary:hover::after,
+.cta-section .btn-primary:focus-visible::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
 
     </style>
 </head>
@@ -1430,35 +1593,36 @@ html.modal-open {
             </ul>
         </div>
         <div class="header-content">
-            <img src="https://i.ibb.co/G6fgTgQ/image.png" alt="Chandu Prasad TS" class="profile-pic initial-load"
+            <img src="https://i.ibb.co/ZR62T53P/Untitled-design-8-removebg-preview.png" alt="Chandu Prasad TS
+" class="profile-pic initial-load"
                 id="profilePic" />
-            <h1 id="userName" class="initial-name-load">Chandu Prasad TS</h1>
+            <h1 id="userName" class="initial-name-load">Chandu Prasad TS
+</h1>
 
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/chandu-prasad-t-s-b57839a9" target="_blank"
-                    rel="noopener noreferrer" class="social-link" aria-label="LinkedIn Profile">
-                    <svg viewBox="0 0 24 24">
-  <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.22 8.18h4.55V24H.22V8.18zM8.09 8.18h4.36v2.15h.06c.61-1.15 2.11-2.36 4.34-2.36C22.26 7.97 24 10.2 24 14.3V24h-4.55v-9.12c0-2.18-.04-4.98-3.04-4.98-3.04 0-3.51 2.37-3.51 4.82V24H8.09V8.18z"/>
-</svg>
-                    LinkedIn
-                </a>
-                <a href="mailto:tschanduprasad@gmail.com" class="social-link" aria-label="Email Chandu Prasad TS">
-                    <svg viewBox="0 0 24 24">
-  <path fill="currentColor" d="M12 13.065L1.5 6V18c0 1.1.9 2 2 2h17c1.1 0 2-.9 2-2V6l-10.5 7.065zM12 11L1.5 4h21L12 11z"/>
-</svg>
-                    Email
-                </a>
-                
+<div class="social-links">
+    <a href="https://www.linkedin.com/in/chandu-prasad-t-s-b57839a9" target="_blank"
+    rel="noopener noreferrer" class="social-link" aria-label="LinkedIn Profile">
+    <svg viewBox="0 0 16 16" style="fill: white;">
+        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+    </svg>
+    LinkedIn
+</a>            
+    <a href="mailto:tschanduprasad@gmail.com?subject=Lets%20Connect"
+   class="social-link email-link"
+   aria-label="Email Chandu Prasad TS
+">
+    
+    <svg viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 13.065L1.5 6V18c0 1.1.9 2 2 2h17c1.1 0 2-.9 2-2V6l-10.5 7.065zM12 11L1.5 4h21L12 11z"/>
+    </svg>
+    Email
+</a>
+
             </div>
 
             <p class="tagline">
-                Experienced and results-oriented professional dedicated to optimizing processes 
-                and enhancing team efficiency in CX. 
-            </p>
-
-            <p class="tagline">
-                A decisive leader with strong analytical skills 
-                and adaptability in problem-solving.
+                Experienced and results-oriented professional dedicated to <strong>optimizing processes</strong> and <strong>enhancing team efficiency</strong> in CX.<br><br>
+A decisive leader with <strong>strong analytical skills</strong> and <strong>adaptability in problem-solving</strong>.
             </p>
 
             <button class="swipe-down-button" id="swipeDownBtn" aria-label="Swipe down to view full profile">
@@ -1476,35 +1640,30 @@ html.modal-open {
             <section id="about" class="section">
                 <h2 class="section-title">About Me</h2>
                 <div class="card">
-                    <p>Experienced and results-oriented professional dedicated to optimizing processes 
-                        and enhancing team efficiency in CX.</p>
-                    <p>A decisive leader with strong analytical skills 
-                        and adaptability in problem-solving.</p>
-                    <p>Passionate about improving customer 
-                        experiences and driving business metrics through collaborative stakeholder 
-                        engagement.</p>
-                    <p>Specialized in streamlining support ticket processes, resolving pain 
-                        points, and implementing strategic solutions. Proficient in developing SOPs and 
-                        workflows to minimize workload and prioritize superior experiences</p>
+                    <p>Experienced and results-oriented professional dedicated to optimizing processes and enhancing team efficiency in CX.
+
+<strong>handling escalations, building effective knowledge bases, and driving team success.</strong></p>
+                    <p>A decisive leader with strong analytical skills and adaptability in problem-solving.</p>
+                    <p>Passionate about improving customer experiences and driving business metrics through collaborative stakeholder engagement.</p>
+                    <p>Specialized in streamlining support ticket processes, resolving pain points, and implementing strategic solutions. Proficient in developing SOPs and workflows to minimize workload and prioritize superior experiences</p>
                 </div>
             </section>
 
             <section id="customer-support-experience" class="section">
                 <h2 class="section-title">Impact & Contributions</h2>
                 <div class="experience-card">
-                    <h3>Assistant Manager - CX</h3>
                     <ul>
-                        <li>Led a team to improve customer experience, ensuring KPIs such as CSAT, FRT, and resolution rates were consistently met</li>
-                        <li>Directed the implementation and optimization of DevRev CRM, collaborating with vendors and internal stakeholders to fix bugs and enable multi-channel support across chat and multiple mailboxes</li>
-                        <li>Automated end-to-end workflows to reduce manual work, enhancing ticket resolution speed significantly</li>
-                        <li>Developed Slack alert systems to flag critical tickets and recurring customer issues, fostering timely intervention</li>
-                        <li>Partnered with Product Managers to translate customer feedback into product roadmap items, prioritizing continuous improvement across support touchpoints</li>
-                        <li>Maintained and updated support SOPs, improving onboarding efficiency, consistency in service delivery, and team productivity</li>
-                        <li>Trained and mentored junior team members to handle complex queries and uphold service standards</li>
-                        <li>Generated detailed performance reports for senior management focused on customer experience and operational metrics</li>
-                        <li>Identified key pain points in the customer journey, facilitating cross-team collaboration to resolve root causes</li>
-                        <li>Efficiently managed high-volume ticket resolution within tight deadlines, aligning team efforts with company goals</li>
-                    </ul>
+<li>Led a team to improve customer experience, ensuring KPIs such as CSAT, FRT, and resolution rates were consistently met.</li>
+<li>Directed the implementation and optimization of DevRev CRM, collaborating with vendors and internal stakeholders to fix bugs and enable multi-channel support across chat and multiple mailboxes.</li>
+<li>Automated end-to-end workflows to reduce manual work, enhancing ticket resolution speed significantly.</li>
+<li>Developed Slack alert systems to flag critical tickets and recurring customer issues, fostering timely intervention.</li>
+<li>Partnered with Product Managers to translate customer feedback into product roadmap items, prioritizing continuous improvement across support touchpoints.</li>
+<li>Maintained and updated support SOPs, improving onboarding efficiency, consistency in service delivery, and team productivity.</li>
+<li>Trained and mentored junior team members to handle complex queries and uphold service standards.</li>
+<li>Generated detailed performance reports for senior management focused on customer experience and operational metrics</li>
+<li>Identified key pain points in the customer journey, facilitating cross-team collaboration to resolve root causes.</li>
+<li>Efficiently managed high-volume ticket resolution within tight deadlines, aligning team efforts with company goals.</li>
+</ul>
                 </div>
             </section>
 
@@ -1513,9 +1672,8 @@ html.modal-open {
                 <div class="carousel-container">
                     <div class="carousel-track" tabindex="0" id="carouselTrack">
                         <article class="carousel-item">
-                            <img class="work-logo" src="https://i.ibb.co/99XFKSFT/2025-11-30-T023136-157.jpg">
-
-                            <h4>Assistant Manager</h4>
+                            <img class="work-logo" src="https://i.ibb.co/99XFKSFT/2025-11-30-T023136-157.jpg" alt="Company logo">
+                            <h4>Assistant Manager - CX</h4>
                             <div class="company"><strong>smallcase</strong></div>
                             <div class="date">January 2021 - Present</div>
                             <ul>
@@ -1525,10 +1683,11 @@ html.modal-open {
                                 <li>Built Slack-based alert systems to prompt timely action on critical tickets and repetitive customer pain points.</li>
                                 <li>Collaborated with Product Managers to resolve recurring issues, convert feedback into roadmap items, and prioritize improvements across the support lifecycle.</li>
                                 <li>Strategically mapped and maintained support SOPs, improving onboarding, consistency, and productivity across the team.</li>
+                                
                             </ul>
                         </article>
                         <article class="carousel-item">
-                            <img class="work-logo" src="https://i.ibb.co/bj4W7nDN/dunzo-seeklogo.png">
+                            <img class="work-logo" src="https://i.ibb.co/6cRW7hDy/logo-1.png" alt="Company logo">
 
                             <h4>Operations Specialist</h4>
                             <div class="company"><strong>Dunzo</strong></div>
@@ -1537,10 +1696,11 @@ html.modal-open {
                                 <li>Efficiently resolved client tickets within tight timeframes.</li>
                                 <li>Produced reports to ensure team goals aligned with company vision.</li>
                                 <li>Recognized as Best Employee of the Month for three consecutive months (June - August 2019).</li>
+                                
                             </ul>
                         </article>
                         <article class="carousel-item">
-                            <img class="work-logo" src="https://i.ibb.co/BKPn385q/image.png">
+                            <img class="work-logo" src="https://i.ibb.co/27Hn0QS5/images-12.png" alt="Company logo">
 
                             <h4>Team Supervisor</h4>
                             <div class="company"><strong>Team Arcis</strong></div>
@@ -1549,8 +1709,10 @@ html.modal-open {
                                 <li>Served as Vice Captain at Team Arcis for over a year, coordinating team activities and supporting strategic decision-making to achieve project goals.</li>
                                 <li>Contributed as a Technical Team Member at Team Arcis, working on tasks and supporting core technical deliverables.</li>
                                 <li>Collaborated closely with peers at Dayananda Sagar College of Engineering, strengthening teamwork, problem-solving, and communication skills.</li>
+                                
                             </ul>
                         </article>
+
                     </div>
                 </div>
 
@@ -1587,6 +1749,7 @@ html.modal-open {
                             <li>Microsoft Excel – reporting, dashboards, and data analysis</li>
                             <li>Google Workspace (Docs, Sheets, Slides, Forms) for documentation and collaboration</li>
                             <li>Automation-oriented thinking using tools/CRM workflows for ticket routing and SLAs</li>
+
                         </ul>
                     </div>
                 </div>
@@ -1596,18 +1759,40 @@ html.modal-open {
                 <h2>Let's Work Together</h2>
                 <p>I'm always open to discussing new opportunities and bringing value to customer service teams.</p>
                 <div>
-                    <a href="mailto:tschanduprasad@gmail.com?subject=Let's Connect" class="btn btn-primary">Get In
-                        Touch</a>
-                    <a href="https://drive.google.com/file/d/1V0dfRNU9egQlGz3pnpe6X7X9SaAsQB-G/view?usp=drivesdk"
+                    <a href="mailto:tschanduprasad@gmail.com?subject=Lets%20Connect"
+   class="btn btn-primary email-link">
+    Get In Touch
+</a>
+
+                    <a href="#"
                         class="btn btn-secondary">View CV</a>
                 </div>
             </section>
-
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 Chandu Prasad TS. All rights reserved.</p>
-        </footer>
+  <div class="footer-icons">
+      <!-- LinkedIn -->
+<a href="https://www.linkedin.com/in/chandu-prasad-t-s-b57839a9" target="_blank" aria-label="LinkedIn profile">
+    <svg viewBox="0 0 16 16" style="fill: white;">
+        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+    </svg>
+</a></a>      
+
+      <!-- Email -->
+      <a href="mailto:tschanduprasad@gmail.com?subject=Lets%20Connect"
+   class="email-link"
+   aria-label="Email">
+    <svg viewBox="0 0 24 24">
+        <path d="M12 13.065L1.5 6V18c0 1.1.9 2 2 2h17c1.1 0 2-.9 2-2V6l-10.5 7.065zM12 11L1.5 4h21L12 11z"/>
+    </svg>
+</a>
+  </div>
+
+  <p>&copy; 2025 Chandu Prasad TS
+. All rights reserved.</p>
+</footer>
+
     </div>
 
     <button class="back-to-top-fab" id="backToTopFab" aria-label="Back to Profile Card">↑</button>
@@ -1616,33 +1801,43 @@ html.modal-open {
         // ----------------------------------------------------
         // START: SWIPE DOWN/UP LOGIC & FAB CONTROL
         // ----------------------------------------------------
+        // Small global guard to prevent navigation/scroll handlers from running
+        // while a modal open/close scroll restoration is in progress.
+        let isModalTransition = false;
+
         const swipeDownBtn = document.getElementById('swipeDownBtn');
         const backToTopFab = document.getElementById('backToTopFab');
         const headerHeight = window.innerHeight;
 
         function openContent() {
+            // If a modal transition is happening, ignore user attempt to open content
+            if (isModalTransition) return;
+
             document.body.classList.add('header-open');
             document.documentElement.classList.add('header-open');
             if (swipeDownBtn) swipeDownBtn.style.display = 'none';
         }
 
         function closeContent() {
-    document.body.classList.remove('header-open');
-    document.documentElement.classList.remove('header-open');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (isModalTransition) return;
 
-    setTimeout(() => {
-        if (swipeDownBtn) swipeDownBtn.style.display = 'inline-flex';
-        backToTopFab.classList.remove('visible');
-    }, 500);
-}
+            document.body.classList.remove('header-open');
+            document.documentElement.classList.remove('header-open');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            setTimeout(() => {
+                if (swipeDownBtn) swipeDownBtn.style.display = 'inline-flex';
+                backToTopFab.classList.remove('visible');
+            }, 500);
+        }
 
 
         // 1. Swipe Down Button Listener
-        swipeDownBtn.addEventListener('click', openContent);
+        if (swipeDownBtn) swipeDownBtn.addEventListener('click', openContent);
 
         // 2. Back-to-Top FAB Listener
         backToTopFab.addEventListener('click', () => {
+            if (isModalTransition) return;
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -1652,6 +1847,7 @@ html.modal-open {
 
         // 3. Show/Hide FAB on Scroll
         window.addEventListener('scroll', () => {
+            if (isModalTransition) return;  // <-- guard prevents jump artifacts while modal finishing
             if (document.body.classList.contains('header-open') && window.scrollY > headerHeight * 0.1) {
                 backToTopFab.classList.add('visible');
             } else {
@@ -1662,6 +1858,12 @@ html.modal-open {
         // Smooth Scrolling and Menu Close Logic
         document.querySelectorAll('.nav-list a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                // Prevent nav clicks during a modal open/close transition
+                if (isModalTransition) {
+                    e.preventDefault();
+                    return;
+                }
+
                 e.preventDefault();
 
                 openContent();
@@ -1794,6 +1996,7 @@ html.modal-open {
         });
 
         track.addEventListener('scroll', () => {
+            if (isModalTransition) return; // don't adjust currentIndex during modal transitions
             if (items.length === 0) return;
             const scrollLeft = track.scrollLeft;
 
@@ -1871,10 +2074,10 @@ html.modal-open {
         // ----------------------------------------------------
         // END PARALLAX
         // ----------------------------------------------------
-        
+
         </script>
-        
-     <!-- WORK EXPERIENCE MODAL -->
+
+<!-- WORK EXPERIENCE MODAL -->
 <div id="workModal" class="work-modal">
     <div class="work-modal-backdrop"></div>
     <div class="work-modal-box">
@@ -1884,13 +2087,27 @@ html.modal-open {
 </div>
 
 <script>
-// ---- WORK EXPERIENCE MODAL ----
+/* ---- WORK EXPERIENCE MODAL ---- */
 const workModal = document.getElementById("workModal");
 const workModalContent = document.getElementById("workModalContent");
 const workModalClose = document.getElementById("workModalClose");
+let savedScrollY = 0;
+
 
 document.querySelectorAll(".carousel-item").forEach(card => {
     card.addEventListener("click", () => {
+
+        // mark transition guard so other handlers don't fight the scroll restoration
+        isModalTransition = true;
+
+        savedScrollY = window.scrollY;
+
+        // apply the "freeze" state
+        document.documentElement.classList.add("modal-fixing-scroll");
+        document.body.classList.add("modal-fixing-scroll");
+
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${savedScrollY}px`;
 
         const logo = card.querySelector(".work-logo")?.src || "";
         const role = card.querySelector("h4")?.innerText || "";
@@ -1919,63 +2136,100 @@ document.querySelectorAll(".carousel-item").forEach(card => {
     });
 });
 
-// Close via button
-workModalClose.addEventListener("click", () => {
+/* ---- PERFECT SCROLL-SAFE MODAL CLOSE (Option A base, preserved) ---- */
+function closeWorkModal() {
+    // ensure other handlers ignore events while we restore the scroll
+    isModalTransition = true;
+
     workModal.classList.remove("active");
+
+    // Unfreeze scroll safely (remove modal-open first so CSS changes take effect)
     document.body.classList.remove("modal-open");
     document.documentElement.classList.remove("modal-open");
-});
 
-// Close via clicking outside
+    document.body.style.position = "";
+    document.body.style.top = "";
+
+    // requestAnimationFrame twice to allow browser to settle layout before restoring scroll
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            // jump back to saved scroll position (this is Option A logic you selected)
+            window.scrollTo(0, savedScrollY);
+
+            // after a small delay (let browser paint), release guard so other handlers resume
+            setTimeout(() => {
+                // remove the fixing-scroll classes now that we've restored the scroll
+                document.documentElement.classList.remove("modal-fixing-scroll");
+                document.body.classList.remove("modal-fixing-scroll");
+
+                // release transition guard
+                isModalTransition = false;
+            }, 220);
+        });
+    });
+}
+
+// Close via button
+workModalClose.addEventListener("click", closeWorkModal);
+
+// Close via clicking backdrop
 workModal.addEventListener("click", (e) => {
     if (e.target.classList.contains("work-modal")) {
-        workModal.classList.remove("active");
-        document.body.classList.remove("modal-open");
-        document.documentElement.classList.remove("modal-open");
+        closeWorkModal();
     }
 });
 
 
 </script>
 
+
 <!-- PROFILE MODAL -->
 <div id="profileModal" class="profile-modal">
     <div class="profile-modal-backdrop"></div>
 
     <div class="profile-modal-box">
-        <button id="profileModalClose" class="profile-modal-close">×</button>
+
+  <button id="profileModalClose" class="profile-modal-close">×</button>
+
+  <!-- NEW HEADER -->
+  <div class="profile-modal-header-center">
+      <h2 class="pm-name">Chandu Prasad TS
+</h2>
+      <span class="role-pill">Senior Associate Manager (CX)</span>
+  </div>
 
         <div class="profile-modal-content">
 
     <img id="profileModalImg" 
          class="profile-modal-img"
-         src="https://i.ibb.co/G6fgTgQ/image.png" 
+         src="https://i.ibb.co/ZR62T53P/Untitled-design-8-removebg-preview.png" 
          alt="Profile">
 
     <div class="profile-details">
-        <h2 class="pm-name">Chandu Prasad TS</h2>
 
-        <p class="detail-row"><strong>D.O.B:</strong> 16/12/1994</p>
-        <p class="detail-row"><strong>Designation:</strong> Assistant Manager (CX)</p>
+
+
         <p class="detail-row"><strong>Location:</strong> Bangalore</p>
-        <p class="detail-row"><strong>Phone:</strong> +91 91645 67759</p>
+        <p class="detail-row"><strong>Phone:</strong> +91 96639 16454</p>
         <p class="detail-row"><strong>Email:</strong> tschanduprasad@gmail.com</p>
-        
+
         <!-- SOCIAL ICONS INSIDE PROFILE MODAL -->
 <div class="profile-modal-icons">
-    <a href="https://www.linkedin.com/in/chandu-prasad-t-s-b57839a9" target="_blank" class="pm-icon">
-        <svg viewBox="0 0 24 24">
-            <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.22 8.18h4.55V24H.22V8.18zM8.09 8.18h4.36v2.15h.06c.61-1.15 2.11-2.36 4.34-2.36C22.26 7.97 24 10.2 24 14.3V24h-4.55v-9.12c0-2.18-.04-4.98-3.04-4.98-3.04 0-3.51 2.37-3.51 4.82V24H8.09V8.18z"/>
-        </svg>
-    </a>
+    <a href="https://www.linkedin.com/in/chandu-prasad-t-s-b57839a9" target="_blank" class="pm-icon" aria-label="LinkedIn profile">
+    <svg viewBox="0 0 16 16" style="fill: white;">
+        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+    </svg>
+</a>
 
-    <a href="mailto:tschanduprasad@gmail.com" class="pm-icon">
-        <svg viewBox="0 0 24 24">
-            <path fill="currentColor" d="M12 13.065L1.5 6V18c0 1.1.9 2 2 2h17c1.1 0 2-.9 2-2V6l-10.5 7.065zM12 11L1.5 4h21L12 11z"/>
-        </svg>
-    </a>
+    <a href="mailto:tschanduprasad@gmail.com?subject=Lets%20Connect"
+   class="pm-icon email-link"
+   aria-label="Email">
+    <svg viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 13.065L1.5 6V18c0 1.1.9 2 2 2h17c1.1 0 2-.9 2-2V6l-10.5 7.065zM12 11L1.5 4h21L12 11z"/>
+    </svg>
+</a>
 
-    <a href="tel:+919164567759" class="pm-icon">
+    <a href="tel:+919164567759" class="pm-icon" aria-label="Phone">
         <svg viewBox="0 0 24 24">
             <path fill="currentColor" d="M6.62 10.79a15.464 15.464 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V21a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/>
         </svg>
@@ -1996,26 +2250,66 @@ const profileModal = document.getElementById("profileModal");
 const profileModalClose = document.getElementById("profileModalClose");
 
 profilePicHeader.addEventListener("click", () => {
+    // guard other handlers briefly while we open the profile modal
+    isModalTransition = true;
+
     profileModal.classList.add("active");
     document.body.classList.add("modal-open");
     document.documentElement.classList.add("modal-open");
+
+    // small timeout to release guard once modal is visibly open
+    setTimeout(() => {
+        isModalTransition = false;
+    }, 160);
 });
 
 profileModalClose.addEventListener("click", () => {
+    isModalTransition = true;
+
     profileModal.classList.remove("active");
     document.body.classList.remove("modal-open");
     document.documentElement.classList.remove("modal-open");
+
+    // release after a short delay so other handlers don't interfere with repaint
+    setTimeout(() => {
+        isModalTransition = false;
+    }, 220);
 });
 
 profileModal.addEventListener("click", (e) => {
     if (e.target.classList.contains("profile-modal")) {
+        isModalTransition = true;
         profileModal.classList.remove("active");
         document.body.classList.remove("modal-open");
         document.documentElement.classList.remove("modal-open");
+
+        setTimeout(() => {
+            isModalTransition = false;
+        }, 220);
     }
 });
 </script>
 
+<script>
+  (function () {
+    // Simple mobile detection
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+      .test(navigator.userAgent);
+
+    const gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=tschanduprasad@gmail.com&su=Lets%20Connect";
+
+    document.querySelectorAll("a.email-link").forEach(link => {
+      link.addEventListener("click", function (e) {
+        // Desktop / laptop → open Gmail web compose
+        if (!isMobile) {
+          e.preventDefault();
+          window.open(gmailUrl, "_blank");
+        }
+        // Mobile → do nothing special; the mailto: link will open the default mail app
+      });
+    });
+  })();
+</script>
 
 </body>
 
